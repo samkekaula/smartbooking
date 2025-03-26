@@ -1,7 +1,10 @@
+// Heroku Backend URL
+const backendUrl = "https://guarded-woodland-37416-faa670fdf5ed.herokuapp.com";
+
 // Fetching Venues Function
 async function fetchVenues() {
     try {
-        const response = await fetch('http://127.0.0.1:8000/venues');
+        const response = await fetch(`${backendUrl}/venues`);
         const data = await response.json();
 
         // Ensure compatibility with previous working version
@@ -80,7 +83,7 @@ function openBookingForm(venueName, pricePerHour) {
         };
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/book_venue", {
+            const response = await fetch(`${backendUrl}/book_venue`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(bookingData),
@@ -104,31 +107,6 @@ function openBookingForm(venueName, pricePerHour) {
 }
 
 document.addEventListener('DOMContentLoaded', fetchVenues);
-venues.forEach((venue) => {
-    // ... other code ...
-
-    let bookButton = '';
-    if (venue.venue_name) {
-        bookButton = `<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" onclick="openBookingForm('${venue.venue_name}', ${venue.price_per_hour})">Book Now</button>`;
-    } else {
-        bookButton = `<p>Booking unavailable</p>`; // Or remove the button entirely
-    }
-
-    venueCard.innerHTML = `
-        <div class="card">
-            <img src="${venue.image_URL}" class="card-img-top" alt="${venue.venue_name}">
-            <div class="card-body">
-                <h5 class="card-title">${venue.venue_name || "Venue Name Unavailable"}</h5>
-                <p class="card-text"><strong>Price per Hour:</strong> $${venue.price_per_hour}</p>
-                <p class="card-text"><strong>Capacity:</strong> ${venue.capacity}</p>
-                <p class="card-text"><strong>Amenities:</strong> ${venue.amenities}</p>
-                ${bookButton}
-            </div>
-        </div>
-    `;
-
-    venueCardsContainer.appendChild(venueCard);
-});
 
 function scrollToVenues() {
     const venueCards = document.getElementById("venue-cards");
