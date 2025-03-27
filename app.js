@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', fetchVenues);
 
 // Booking Form Logic
 function openBookingForm(venueName, pricePerHour) {
-    // Get form elements
     const bookingForm = document.getElementById('booking-form');
     const hoursInput = document.getElementById('bookingHours');
     const totalPriceDisplay = document.getElementById('total-price');
@@ -55,7 +54,7 @@ function openBookingForm(venueName, pricePerHour) {
 
     // Set venue name and reset form values
     venueNameInput.value = venueName;
-    document.getElementById('fullName').value = "";
+    document.getElementById('customerName').value = "";
     document.getElementById('emailAddress').value = "";
     document.getElementById('phoneNumber').value = "";
     document.getElementById('bookingDate').value = "";
@@ -68,18 +67,17 @@ function openBookingForm(venueName, pricePerHour) {
         totalPriceDisplay.textContent = hours > 0 ? (hours * pricePerHour).toFixed(2) : "0";
     });
 
-    // Handle form submission
     bookingForm.onsubmit = async function (event) {
         event.preventDefault();
 
         const bookingData = {
-            venue_name: venueNameInput.value,
-            full_name: document.getElementById("fullName").value,
+            venue_name: document.getElementById("venueName").value,
+            customer_name: document.getElementById("customerName").value,
             email_address: document.getElementById("emailAddress").value,
             phone_number: document.getElementById("phoneNumber").value,
             booking_date: document.getElementById("bookingDate").value,
-            booking_hours: hoursInput.value,
-            total_price: parseFloat(totalPriceDisplay.textContent)
+            booking_hours: document.getElementById("bookingHours").value,
+            total_price: parseFloat(document.getElementById("total-price").textContent)
         };
 
         try {
@@ -93,7 +91,7 @@ function openBookingForm(venueName, pricePerHour) {
             if (response.ok) {
                 alert("Booking successful!");
                 bookingForm.reset();
-                totalPriceDisplay.textContent = "0";
+                document.getElementById('total-price').textContent = "0";
                 const bookingModal = bootstrap.Modal.getInstance(document.getElementById("bookingModal"));
                 bookingModal.hide();
             } else {
