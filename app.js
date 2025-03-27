@@ -55,7 +55,7 @@ function openBookingForm(venueName, pricePerHour) {
 
     // Set venue name and reset form values
     venueNameInput.value = venueName;
-    document.getElementById('customerName').value = "";
+    document.getElementById('fullName').value = "";
     document.getElementById('emailAddress').value = "";
     document.getElementById('phoneNumber').value = "";
     document.getElementById('bookingDate').value = "";
@@ -74,7 +74,7 @@ function openBookingForm(venueName, pricePerHour) {
 
         const bookingData = {
             venue_name: venueNameInput.value,
-            customer_name: document.getElementById("customerName").value,
+            full_name: document.getElementById("fullName").value,
             email_address: document.getElementById("emailAddress").value,
             phone_number: document.getElementById("phoneNumber").value,
             booking_date: document.getElementById("bookingDate").value,
